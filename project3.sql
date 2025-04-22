@@ -20,18 +20,18 @@ DROP TABLE Actor CASCADE CONSTRAINTS;
 
 --TABLE CREATION
 CREATE TABLE Movie (
-    Mname VARCHAR2(20),
-    movieRating VARCHAR2(10),
+    Mname VARCHAR2(100),
+    movieRating VARCHAR2(100),
     year NUMBER(4),
-    synopsis VARCHAR2(40),
-    runtime_min NUMBER(5),
+    synopsis VARCHAR2(100),
+    runtime_min NUMBER(10),
     movie_html_id VARCHAR2(10) CONSTRAINT Movie_movie_html_id_PK PRIMARY KEY
 );
 
 CREATE TABLE TvShow (
-    show_name VARCHAR2(20),
-    Pilot VARCHAR2(20),
-    synopsis VARCHAR2(40),
+    show_name VARCHAR2(100),
+    Pilot VARCHAR2(100),
+    synopsis VARCHAR2(100),
     tv_html_id VARCHAR2(10) CONSTRAINT TvShow_tv_html_id_PK PRIMARY KEY
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE Movie_Review (
 
 CREATE TABLE Season (
     SeasonNum NUMBER(2),
-    seasonFinale VARCHAR2(20),
+    seasonFinale VARCHAR2(100),
     episodes VARCHAR2(300), --do we want this to be VARCHAR or NUM?
     TV_HTML VARCHAR2(10),
     CONSTRAINT Seasons_PK PRIMARY KEY (SeasonNum, TV_HTML)
@@ -153,12 +153,24 @@ VALUES ('A Minecraft Movie', 'PG', 2025, 'Minecraft but movie', 201, 'tt3566834'
 INSERT INTO Movie (Mname, movieRating, year, synopsis, runtime_min, movie_html_id) 
 VALUES ('The Shawshank Redemption', 'R', 1994, 'A banker convicted of uxoricide forms...', 142, 'tt0111161');
 
+INSERT INTO Movie (Mname, movieRating, year, synopsis, runtime_min, movie_html_id)
+VALUES ('The Revenant', 'R', 2015, 'Man survives wilderness for revenge', 156, 'tt1663202');
+
 --TV INSERTS
 INSERT INTO TvShow (show_name, Pilot, synopsis, tv_html_id) 
 VALUES ('Breaking Bad', 'Pilot Episode', 'Teacher turns drug dealer', 'tt0903747'); 
 
 INSERT INTO TvShow (show_name, Pilot, synopsis, tv_html_id) 
 VALUES ('Game of Thrones', 'Winter is Coming', 'Fantasy kingdoms at war', 'tt0944947'); 
+
+INSERT INTO TvShow (show_name, Pilot, synopsis, tv_html_id) 
+VALUES ('Malcolm in the Middle', 'Pilot', 'Genius kid in a chaotic family', 'tt0212671');
+
+INSERT INTO TvShow (show_name, Pilot, synopsis, tv_html_id) 
+VALUES ('Avatar: The Last Airbender', 'The Boy in the Iceberg', 'Young Avatar must save the world', 'tt0417299');
+
+INSERT INTO TvShow (show_name, Pilot, synopsis, tv_html_id) 
+VALUES ('Better Call Saul', 'Uno', 'A lawyers moral slide', 'tt3032476');
 
 --ACTOR INSERTS
 INSERT INTO Actor (First_name, Last_name, stageName, filmography, actor_html_id) 
@@ -173,6 +185,12 @@ VALUES ('Jack', 'Black', 'Jack Black', 'A Minecraft Movie, Kung Fu Panda', 'nm00
 INSERT INTO Actor (First_name, Last_name, stageName, filmography, actor_html_id) 
 VALUES ('Tim', 'Robbins', 'Tim Robbins', 'Mystic River, Howard the Duck', 'nm0000209'); 
 
+INSERT INTO Actor (First_name, Last_name, stageName, filmography, actor_html_id) 
+VALUES ('Emilia', 'Clarke', 'Emilia Clarke', 'Game of Thrones, Me Before You', 'nm3592338');
+
+INSERT INTO Actor (First_name, Last_name, stageName, filmography, actor_html_id) 
+VALUES ('Zach', 'Tyler', 'Zach Tyler Eisen', 'Avatar: The Last Airbender', 'nm0254735');
+
 
 --DIRECTOR INSERTS
 INSERT INTO Director (First_name, Last_name, filmography, director_html_id) 
@@ -183,6 +201,18 @@ VALUES ('James', 'Cameron', 'Titanic, Avatar', 'nm0000116');
 
 INSERT INTO Director (First_name, Last_name, filmography, director_html_id) 
 VALUES ('Jared', 'Hess', 'A Minecraft Movie, Nacho Libre', 'nm0381478');
+
+INSERT INTO Director (First_name, Last_name, filmography, director_html_id)
+VALUES ('Alejandro', 'G. Inarritu', 'The Revenant, Birdman', 'nm0327944');
+
+INSERT INTO Director (First_name, Last_name, filmography, director_html_id)
+VALUES ('Frank', 'Darabont', 'The Shawshank Redemption, The Green Mile', 'nm0001104');
+
+INSERT INTO Director (First_name, Last_name, filmography, director_html_id) 
+VALUES ('Michael', 'DiMartino', 'Avatar: The Last Airbender, The Dragon Prince', 'nm0227476');
+
+INSERT INTO Director (First_name, Last_name, filmography, director_html_id) 
+VALUES ('Vince', 'Gilligan', 'Breaking Bad, Better Call Saul', 'nm0319213');
 
 --STREAMING SERVICE INSERTS
 INSERT INTO streamingService (stream_html_id, Service_Name, price, plan) 
@@ -197,6 +227,9 @@ VALUES ('AMZPRM', 'Prime Video', 14.99, 'Premium');
 INSERT INTO streamingService (stream_html_id, Service_Name, price, plan) 
 VALUES ('THEAT', 'THEATRE', 14.99, 'One Time');
 
+INSERT INTO streamingService (stream_html_id, Service_Name, price, plan)
+VALUES ('HULU', 'Hulu', 14.99, 'Standard');
+
 
 
 --WATCH ON INSERTS
@@ -206,6 +239,15 @@ VALUES ('tt0903747', 'NTFLX');
 INSERT INTO TvWatchOn (Tv_html, service_html) 
 VALUES ('tt0944947', 'HBO');
 
+INSERT INTO TvWatchOn (Tv_html, service_html) 
+VALUES ('tt0212671', 'HULU');
+
+INSERT INTO TvWatchOn (Tv_html, service_html) 
+VALUES ('tt0417299', 'NTFLX');
+
+INSERT INTO TvWatchOn (Tv_html, service_html) 
+VALUES ('tt3032476', 'NTFLX');
+
 --MOVIE WATCH ON INSERTS
 INSERT INTO MovieWatchOn (Movie_html, service_html) 
 VALUES ('tt1375666', 'AMZPRM');
@@ -214,7 +256,13 @@ INSERT INTO MovieWatchOn (Movie_html, service_html)
 VALUES ('tt0120338', 'HBO');
 
 INSERT INTO MovieWatchOn (Movie_html, service_html) 
-VALUES ('tt3566834', 'THEATRE');
+VALUES ('tt3566834', 'THEAT');
+
+INSERT INTO MovieWatchOn (Movie_html, service_html) 
+VALUES ('tt1663202', 'AMZPRM');
+
+INSERT INTO MovieWatchOn (Movie_HTML, service_html) 
+VALUES ('tt0111161', 'NTFLX');
 
 --MOVIE DIRECTED BY INSERTS
 INSERT INTO Movie_Directed_By (Movie_HTML, Director_HTML) 
@@ -226,6 +274,12 @@ VALUES ('tt0120338', 'nm0000116');
 INSERT INTO Movie_Directed_By (Movie_HTML, Director_HTML) 
 VALUES ('tt3566834', 'nm0381478');
 
+INSERT INTO Movie_Directed_By (Movie_HTML, Director_HTML)
+VALUES ('tt1663202', 'nm0327944');
+
+INSERT INTO Movie_Directed_By (Movie_HTML, Director_HTML)
+VALUES ('tt0111161', 'nm0001104');
+
 --TV DIRECTED BY INSERTS
 INSERT INTO TV_Directed_By (TV_HTML, Director_HTML) 
 VALUES ('tt0903747', 'nm0634240');
@@ -233,9 +287,27 @@ VALUES ('tt0903747', 'nm0634240');
 INSERT INTO TV_Directed_By (TV_HTML, Director_HTML) 
 VALUES ('tt0944947', 'nm0000116');
 
+INSERT INTO TV_Directed_By (TV_HTML, Director_HTML)
+VALUES ('tt0417299', 'nm0227476');
+
+INSERT INTO TV_Directed_By (TV_HTML, Director_HTML)
+VALUES ('tt3032476', 'nm0319213');
+
 --TV REVIEW INSERTS
 INSERT INTO TV_Review (TV_HTML, review, stars, title, description, r_date) 
 VALUES ('tt0903747', 'Amazing show!', 9.5, 'Best Ever', 'Breaking Bad is incredible.', TO_DATE('2023-01-01','YYYY-MM-DD'));
+
+INSERT INTO TV_Review (TV_HTML, review, stars, title, description, r_date) 
+VALUES ('tt0212671', 'Everyone needs to sit through the first season!', 8.2, 'Classic 90s sitcom.', 'Great Family Sitcom!', TO_DATE('2013-05-08','YYYY-MM-DD'));
+
+INSERT INTO TV_Review (TV_HTML, review, stars, title, description, r_date) 
+VALUES ('tt0417299', 'For someone who loves fantasy this is an excellent show.', 8.3, 'Excellent Show', 'Just a classis for adults and children alike', TO_DATE('2021-12-16','YYYY-MM-DD'));
+
+INSERT INTO TV_Review (TV_HTML, review, stars, title, description, r_date) 
+VALUES ('tt3032476', 'Tense and character-driven.', 9.2, 'Solid Prequel', 'Better Call Saul lives up to Breaking Bad.', TO_DATE('2023-09-18','YYYY-MM-DD'));
+
+INSERT INTO TV_Review (TV_HTML, review, stars, title, description, r_date) 
+VALUES ('tt0944947', 'Epic and unforgettable.', 9.0, 'Fantasy at its best', 'GoT delivers shocking twists and battles.', TO_DATE('2023-04-02','YYYY-MM-DD'));
 
 --MOVIE REVIEW INSERTS
 INSERT INTO Movie_Review (Movie_HTML, review, stars, title, description, r_date) 
@@ -245,7 +317,13 @@ INSERT INTO Movie_Review (Movie_HTML, review, stars, title, description, r_date)
 VALUES ('tt0120338', 'Job well done!', 9.0, 'One hell of a movie', 'The characters were phenomenal.', TO_DATE('2023-06-25','YYYY-MM-DD'));
 
 INSERT INTO Movie_Review (Movie_HTML, review, stars, title, description, r_date) 
-VALUES ('tt3566834', 'Entertaining, but thats it', 7.0, 'I do recommend watching this movie', 'As a longitme Minecraft player, Ive waited years for this movie...', TO_DATE('2025-04-01','YYYY-MM-DD'));
+VALUES ('tt3566834', 'Entertaining, but thats it', 7.0, 'I do recommend watching this movie', 'As a longtime Minecraft player, Ive waited years for this movie...', TO_DATE('2025-04-01','YYYY-MM-DD'));
+
+INSERT INTO Movie_Review (Movie_HTML, review, stars, title, description, r_date) 
+VALUES ('tt1663202', 'Raw and powerful performance.', 8.5, 'Intense Survival', 'DiCaprio delivers an unforgettable performance.', TO_DATE('2024-12-10','YYYY-MM-DD'));
+
+INSERT INTO Movie_Review (Movie_HTML, review, stars, title, description, r_date) 
+VALUES ('tt0111161', 'Hope is a good thing.', 9.3, 'Timeless Classic', 'One of the greatest stories ever told.', TO_DATE('2022-04-15','YYYY-MM-DD'));
 
 --SEASON INSERTS
 INSERT INTO Season (SeasonNum, seasonFinale, episodes, TV_HTML) 
@@ -254,6 +332,15 @@ VALUES (1, 'Felina', 'S01E01, S01E02, S01E03', 'tt0903747');
 INSERT INTO Season (SeasonNum, seasonFinale, episodes, TV_HTML) 
 VALUES (1, 'Dragon and the Wolf', 'S07E01, S07E02, S07E03', 'tt0944947');
 
+INSERT INTO Season (SeasonNum, seasonFinale, episodes, TV_HTML) 
+VALUES (1, 'Water Park', 'S01E01, S01E02, S01E03', 'tt0212671');
+
+INSERT INTO Season (SeasonNum, seasonFinale, episodes, TV_HTML) 
+VALUES (1, 'The Siege of the North, Part 2', 'S01E01, S01E02, S01E03', 'tt0417299');
+
+INSERT INTO Season (SeasonNum, seasonFinale, episodes, TV_HTML) 
+VALUES (1, 'Marco', 'S01E01, S01E02, S01E03', 'tt3032476');
+
 --WRITER INSERTS
 INSERT INTO Writer (TV_HTML, SeasonNum, writers) 
 VALUES ('tt0903747', 1, 'Vince Gilligan');
@@ -261,9 +348,30 @@ VALUES ('tt0903747', 1, 'Vince Gilligan');
 INSERT INTO Writer (TV_HTML, SeasonNum, writers) 
 VALUES ('tt0944947', 1, 'George R. R. Martin');
 
+INSERT INTO Writer (TV_HTML, SeasonNum, writers) 
+VALUES ('tt0212671', 1, 'Linwood Boomer');
+
+INSERT INTO Writer (TV_HTML, SeasonNum, writers) 
+VALUES ('tt0417299', 1, 'Michael Dante DiMartino, Bryan Konietzko');
+
+INSERT INTO Writer (TV_HTML, SeasonNum, writers) 
+VALUES ('tt3032476', 1, 'Peter Gould');
+
 --ACTOR TV INSERTS
 INSERT INTO Act_TV (TV_HTML, Actor_HTML) 
 VALUES ('tt0903747', 'nm0186505');
+
+INSERT INTO Act_TV (TV_HTML, Actor_HTML) 
+VALUES ('tt0212671', 'nm0186505');
+
+INSERT INTO Act_TV (TV_HTML, Actor_HTML) 
+VALUES ('tt3032476', 'nm0186505');
+
+INSERT INTO Act_TV (TV_HTML, Actor_HTML) 
+VALUES ('tt0944947', 'nm3592338');
+
+INSERT INTO Act_TV (TV_HTML, Actor_HTML) 
+VALUES ('tt0417299', 'nm0254735');
 
 --ACT MOVIE INSERTS
 INSERT INTO Act_Movie (Movie_HTML, Actor_HTML) 
@@ -275,6 +383,11 @@ VALUES ('tt0120338', 'nm0000138');
 INSERT INTO Act_Movie (Movie_HTML, Actor_HTML) 
 VALUES ('tt3566834', 'nm0085312');
 
+INSERT INTO Act_Movie (Movie_HTML, Actor_HTML) 
+VALUES ('tt1663202', 'nm0000138');
+
+INSERT INTO Act_Movie (Movie_HTML, Actor_HTML) 
+VALUES ('tt0111161', 'nm0000209');
 
 --TV GENRE INSERTS
 INSERT INTO TV_Genre (TV_HTML, genre) 
@@ -282,6 +395,15 @@ VALUES ('tt0903747', 'Crime');
 
 INSERT INTO TV_Genre (TV_HTML, genre) 
 VALUES ('tt0944947', 'Fantasy');
+
+INSERT INTO TV_Genre (TV_HTML, genre) 
+VALUES ('tt0212671', 'Comedy');
+
+INSERT INTO TV_Genre (TV_HTML, genre) 
+VALUES ('tt0417299', 'Animation');
+
+INSERT INTO TV_Genre (TV_HTML, genre) 
+VALUES ('tt3032476', 'Crime');
 
 --MOVIE GENRE INSERTS
 INSERT INTO Movie_Genre (Movie_HTML, genre) 
@@ -292,6 +414,12 @@ VALUES ('tt0120338', 'Romance');
 
 INSERT INTO Movie_Genre (Movie_HTML, genre) 
 VALUES ('tt3566834', 'Action, Adeventure, Fantasy');
+
+INSERT INTO Movie_Genre (Movie_HTML, genre) 
+VALUES ('tt1663202', 'Adventure, Drama');
+
+INSERT INTO Movie_Genre (Movie_HTML, genre) 
+VALUES ('tt0111161', 'Drama');
 
 --FOREIGN KEY ALTER TABLES
 ALTER TABLE TvWatchOn
